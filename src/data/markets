@@ -1,0 +1,35 @@
+[
+    {
+        "name": "Virginia Beach Farmers Market",
+        "street": "3640 Dam Neck Rd",
+        "city": "Virginia Beach",
+        "state": "VA",
+        "url": "https://www.visitvirginiabeach.com/listing/virginia-beach-farmers-market/151/",
+        "pos":{
+            "lat":36.7768, 
+            "lng":76.0912
+        }
+    },
+    {
+        "name": "Old Beach Farmers Market",
+        "street": "620 19th St",
+        "city": "Virginia Beach",
+        "state": "VA",
+        "url": "http://www.oldbeachfarmersmarket.com/",
+        "pos":{
+            "lat":36.8456, 
+            "lng":75.9832
+        }
+    },
+    {
+        "name": "Shore Drive Farmers Market",
+        "street": "2961 Shore Dr",
+        "city": "Virginia Beach",
+        "state": "VA",
+        "url": "https://m.facebook.com/Shoredrivefarmarket/",
+        "pos":{
+            "lat": 36.9100, 
+            "lng": 76.0744
+        }
+    }
+]
