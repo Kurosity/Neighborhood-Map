@@ -1,89 +1,83 @@
-import React, { Component } from 'react'
-//import logo from './logo.svg';
-import './App.css'
-//import {Map, GoogleApiWrapper} from 'google-maps-react'
-//import Maps from './Component/Map'
-// import { DirectionsRenderer } from 'react-google-maps';
-// import LoadApi from './Component/LoadApi';
-import Display from './Component/Display'
-import markets from './data/markets.json'
+import React, { Component } from 'react';
+import './App.css';
+import Container from './Components/Container'
+import markets from './data/markets'
+import Drawer from './Components/MDrawer'
 
 class App extends Component {
-
-  /*
-  <header className="App-header">
-             <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-    </header>
-   */
-
- /* initMap = () => {
-    let map = new window.google.maps.Map(
-      document.getElementById('map'), 
-      {
-        center: {lat: -34.397, lng: 150.644},
-        zoom: 8
-      }
-
-    )
-
-  }*/
-
-  // </div>
-  // <div id="map"/>
-  //      </div>
-// state = {
-//   style : {
-//     width: '100vw',
-//     height: '100vh',
-//     position: 'relative',
-//   }
-// }
-
-  state ={
+  state = {
     lat: 36.8529,
-    lngt: -75.9780, 
+    lng: -75.9780, 
     zoom: 11.5,
-    locations: markets
+    locations: markets,
+    openDrawer: false,
+    fLocations: null
+  }
+
+  componentDidMount = () => {
+    this.setState({
+      ...this.state,
+      fLocations: this.filterMarket(this.state.locations, '')
+    })
+  }
+
+  filterMarket = (locations, query) => {
+    return locations.filter(market => 
+      market.name.toLowerCase().includes(query.toLowerCase()))
+  }
+
+  updateMarketQuery = (query) => {
+    this.setState({
+      ...this.state,
+      selectedIndex: null,
+      fLocations: this.filterMarket(this.state.locations, query)
+    })
+  }
+
+  toggle = () => {
+    this.setState({ openDrawer: !this.state.openDrawer})
+  }
+
+  styles = {
+    button:{
+      marginLeft: 10,
+      marginRight: 20,
+      position: "absolute",
+      left: 10,
+      top: 20,
+      background: 'black',
+      padding: 10
+    }
   }
 
   render() {
+    console.log(this.state.fLocations)
     return (
-      <div>
-        <div className="App">
-          <h1>
-            My Neighborhood Map
-          </h1>   
+      <div className="App">
+        <div>
+          <button onClick={this.toggle} style={this.styles.button}>
+            <i className='TBD'></i>
+          </button>
+          <p>
+            My Neighborhod Map
+          </p>
+        </div>
+        <Container 
+          lat={this.state.lat}
+          lng={this.state.lng}
+          zoom={this.state.zoom}
+          locations={this.state.locations}
+          fLocation={this.state.fLocations}
+          google={this.props.google}/>
+        <Drawer
+          locations={this.state.fLocations}
+          open={this.state.openDrawer}
+          toggle={this.toggle}
+          fLocations={this.updateMarketQuery}
+        />
       </div>
-      {/* <Map google={this.props.google} 
-            zoom={15}
-            className={'map'}
-            style={this.state.style}
-            initialCenter={{
-              lat: 37.0299,
-              lng: 76.3452
-            }}
-            /> */}
-            
-            <Display
-              lat={this.state.lat}
-              lngt={this.state.lngt}
-              zoom={this.state.zoom}
-              locations={this.state.locations}
-            />
-    </div>     
     );
-  };
+  }
 }
 
-export default App;
+ export default App
