@@ -54,6 +54,7 @@ class MapDrawer extends Component{
                     <div style={this.styles.drawerList}>
                         <input
                             name='search'
+                            aria-label='Search Filter'
                             value={this.state.query}
                             style={this.styles.searchInput}
                             type='text'
@@ -65,8 +66,16 @@ class MapDrawer extends Component{
                         <ul style={this.styles.list}>
                             {this.props.locations && this.props.locations.map((market, index) => {
                                 return (
-                                    <li style={this.styles.market} key={index}>
-                                        <button style={this.styles.link} key={index}>
+                                    <li 
+                                        style={this.styles.market} 
+                                        key={index}
+                                        aria-label='Place Location'
+                                    >
+                                        <button 
+                                            style={this.styles.link}
+                                            key={index}
+                                            onClick={this.props.menuSelect(market.name)}
+                                        >
                                             {market.name}
                                         </button>
                                     </li>
