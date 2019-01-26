@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {GoogleApiWrapper} from 'google-maps-react'
 import './App.css';
 import Container from './Components/Container'
 import markets from './data/markets'
@@ -14,11 +15,43 @@ class App extends Component {
     fLocations: null
   }
 
+    menuSelect = (mName) => {
+    let {infoWindow} = this.state
+    let mSData = this.locations.filter(market => 
+     market.name.toLowerCase().includes(mName.toLowerCase()))
+    
+    this.populateInfoWindow=(mSData, infoWindow)
+   } 
+
+    populateInfoWindow = (marker, infoWindow) => {
+      // console.log(marker.title)
+      if(this.state.marker !== marker){
+        this.setState(infoWindow.marker = marker)
+          this.state.setContent(`
+          <div>   
+              <h3>${marker.title}</h3>
+          </div>
+          <div>
+              <ul style='list-style-type:none'>
+                  <li>${marker.address}</li>
+                  <li>${marker.city}</li>
+                  <li><a href='${marker.link}'>More Information</a></li>
+              </ul>
+          </div>
+          `)
+          infoWindow.open(this.map, marker)
+          infoWindow.addListener('closeclick', function(){
+              infoWindow.marker = null
+          })
+      }
+    }
+
   componentDidMount = () => {
-    this.setState({
-      ...this.state,
-      fLocations: this.filterMarket(this.state.locations, '')
-    })
+    // this.setState({
+    //   ...this.state,
+    //   fLocations: this.state.locations
+    // })
+    console.log(this.state.fLocations)
   }
 
   filterMarket = (locations, query) => {
@@ -56,7 +89,7 @@ class App extends Component {
       <div className="App">
         <div>
           <button onClick={this.toggle} style={this.styles.button}>
-            <i className='TBD'></i>
+            <i className='menuButton'></i>
           </button>
           <p>
             My Neighborhod Map
