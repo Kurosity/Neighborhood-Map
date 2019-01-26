@@ -74,7 +74,7 @@ class MapDrawer extends Component{
                                         <button 
                                             style={this.styles.link}
                                             key={index}
-                                            onClick={this.props.menuSelect(market.name)}
+                                            //onClick={this.props.menuSelect(market.name)}
                                         >
                                             {market.name}
                                         </button>
