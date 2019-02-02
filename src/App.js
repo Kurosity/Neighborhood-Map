@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import {GoogleApiWrapper} from 'google-maps-react'
 import './App.css';
-import Container from './Components/Container'
+import Container from './Component/Container'
 import markets from './data/markets'
-import Drawer from './Components/MDrawer'
+import Drawer from './Component/MDrawer'
 
 class App extends Component {
   state = {
