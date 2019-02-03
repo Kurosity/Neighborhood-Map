@@ -2,34 +2,61 @@
     {
         "name": "Virginia Beach Farmers Market",
         "street": "3640 Dam Neck Rd",
-        "city": "Virginia Beach",
-        "state": "VA",
+        "city": "Virginia Beach, Va",
         "url": "https://www.visitvirginiabeach.com/listing/virginia-beach-farmers-market/151/",
         "pos":{
-            "lat":36.7768, 
-            "lng":76.0912
+            "lat": 36.7768, 
+            "lng": -76.0912
         }
     },
     {
         "name": "Old Beach Farmers Market",
         "street": "620 19th St",
-        "city": "Virginia Beach",
-        "state": "VA",
+        "city": "Virginia Beach, Va",
         "url": "http://www.oldbeachfarmersmarket.com/",
         "pos":{
-            "lat":36.8456, 
-            "lng":75.9832
+            "lat": 36.8456, 
+            "lng": -75.9832
         }
     },
     {
         "name": "Shore Drive Farmers Market",
         "street": "2961 Shore Dr",
-        "city": "Virginia Beach",
-        "state": "VA",
+        "city": "Virginia Beach, Va",
         "url": "https://m.facebook.com/Shoredrivefarmarket/",
         "pos":{
             "lat": 36.9100, 
-            "lng": 76.0744
+            "lng": -76.0744
+        }
+    },
+    {
+        "name": "Cindy's Produce",
+        "street": "2385 Harpers Rd",
+        "city": "Virginia Beach, Va",
+        "url": "https://cindys-produce.business.site/",
+        "pos":{
+            "lat": 36.7807, 
+            "lng": -76.0431
+        }
+    },
+    {
+        "name": "Thomas Produce Market",
+        "street": "1166 Culver Ln",
+        "city": "Virginia Beach, Va",
+        "url": "https://thomas-produce-market.business.site/",
+        "pos":{
+            "lat": 36.7742, 
+            "lng": -76.0018
+        }
+    },
+    {
+        "name": "Old Beach Green Market",
+        "street": "1800 Cypress Ave",
+        "city": "Virginia Beach, Va",
+        "url": "http://www.oldbeachgreenmarket.com/",
+        "pos":{
+            "lat": 36.8450, 
+            "lng": -75.9835
         }
     }
 ]
