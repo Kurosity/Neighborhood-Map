@@ -17,7 +17,7 @@ export class App extends Component {
         fLocations: markets,
         // infoWindow: new this.props.google.maps.InfoWindow(),
         // markers: []
-        isOpen: false
+        open: false
       }
     
     //Styles for map and the menu button
@@ -46,9 +46,7 @@ export class App extends Component {
     
     //Toggle the InfoWindow
     toggleInfoWindow = () => {
-        this.setstate({
-            isOpen: !this.state.isOpen
-        })
+        this.setstate({ open: !this.state.open })
     }
     
     clickMarker = () => {
@@ -75,7 +73,7 @@ export class App extends Component {
                 fLocations={this.state.fLocations}
                 google={this.props.google}
                 style={this.styles.map}
-                open={this.state.isOpen}
+                open={this.state.open}
                 toggleWindow={this.toggleInfoWindow}
             />
           </div>
