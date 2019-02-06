@@ -15,6 +15,7 @@ class App extends Component {
     fLocations: null
   }
 
+// 1st attempt to display InfoWindow from menu
     menuSelect = (mName) => {
     let {infoWindow} = this.state
     let mSData = this.locations.filter(market => 
@@ -23,6 +24,7 @@ class App extends Component {
     this.populateInfoWindow=(mSData, infoWindow)
    } 
 
+ //Function to display InfoWindow
     populateInfoWindow = (marker, infoWindow) => {
       // console.log(marker.title)
       if(this.state.marker !== marker){
@@ -47,6 +49,7 @@ class App extends Component {
     }
 
   componentDidMount = () => {
+    // Mount the locatations
     // this.setState({
     //   ...this.state,
     //   fLocations: this.state.locations
@@ -54,11 +57,13 @@ class App extends Component {
     console.log(this.state.fLocations)
   }
 
+  //Filter the market based on the search query
   filterMarket = (locations, query) => {
     return locations.filter(market => 
       market.name.toLowerCase().includes(query.toLowerCase()))
   }
 
+  // Update fLocations with the filtered query (using filterMarket)
   updateMarketQuery = (query) => {
     this.setState({
       ...this.state,
@@ -67,6 +72,7 @@ class App extends Component {
     })
   }
 
+  //Open and Close the menu
   toggle = () => {
     this.setState({ openDrawer: !this.state.openDrawer})
   }
