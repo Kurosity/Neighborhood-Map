@@ -1,5 +1,20 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Last Project - Farmer's Market Neighborhood-Map
+
+## Purpose
+This project displays markers for a list of farmer's markets on a map. When the marker is clicked the InfoWindow is displayed with the market information. The InfoWindow will also display when the farmer's market is clicked on the menu. The markers can also be fitered by use the search field on the menu. 
+
+## Components
+
+Do the following before running:
+
+npm install --save google-maps-react
+npm install @material-ui/core
+
+
+
+
 ## Available Scripts
 
 In the project directory, you can run:
