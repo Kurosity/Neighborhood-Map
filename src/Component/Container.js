@@ -11,14 +11,16 @@ class Container extends Component{
         markers: [],
         infoWindow: new this.props.google.maps.InfoWindow()
     }
-    
+   
+    //Once something updates (search query), reload the map
     componentDidUpdate = () =>{
         // console.log(this.props.fLocation)
         this.loadMap()
     }
 
-    // fMarkets = this.props.fLocation
+    // fMarkets = this.props.fLocation /*Uncomment and comment out fMarkets in state to use*/
 
+    //Once the map loads all the markers using the configuration in mConfig
     loadMap(){
         // console.log(this.props.fLocation)
         console.log(this.props.fLocation)
@@ -46,16 +48,11 @@ class Container extends Component{
         this.loadMap()
     }
 
-    
-    // updateMarkers = (market) => {
-    //     if(!market){
-    //         return
-    //     }
-
-    //     this.state.markers.forEach(marker => marker.setMap(null))
-
-
-    // }
+    /*
+    * Add marker to each farmer market location. Animate the marker on load
+    * Add event listener to display InfoWindow once the marker has been clicked
+    * The map will zoom in based on the position of the markers (mbounds.extends)
+    */
 
     addMarkers =() => {
         let {google} = this.props
@@ -98,7 +95,15 @@ console.log(location.title)
         })
     
 
-        // if(mLocations === null || 
+        /*
+        * Display markers based on mLocations 
+        * (compare if mLocations not populated/null/undefined, use unfiltered locations (locations))
+        * else use the filtered locations (mLocations)
+        *
+        * This is possible alternative for the above code
+        */
+        
+        //if(mLocations === null || 
         //     mLocations === undefined || 
         //     mLocations === ''
         //     ){           
@@ -151,6 +156,12 @@ console.log(location.title)
         this.map.fitBounds(mbounds)
     }
 
+    /*
+    * Function to populate InfoWindow 
+    * Once the window is clicked. the window will close
+    *
+    * (same code in App.js -> attemp to use from App.js for menu)
+    */
     populateInfoWindow = (marker, infoWindow) => {
         // console.log(marker.title)
         if(infoWindow.marker !== marker){
