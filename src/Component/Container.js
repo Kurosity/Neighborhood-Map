@@ -8,12 +8,12 @@ class Container extends Component {
         zoom: this.props.zoom,
         lat: this.props.lat,
         lng: this.props.lng,
-        open: this.props.open,
-        toggle: this.props.toggleWindow    
+        //toggle: this.props.toggleWindow    
     }
 
     fLocations = this.props.fLocations
-    // toggle = this.props.toggleWindow
+    toggle = this.props.toggleWindow
+    open= this.props.open
 
     style = {
         width: '100vw',
@@ -49,9 +49,9 @@ class Container extends Component {
                         name={market.name}
                         position={market.pos} 
                         animation={this.props.google.maps.Animation.DROP}
-                        onClick={this.state.toggleWindow}
+                        onClick={this.props.toggleWindow}
                      >
-                     {this.state.open &&
+                     {this.open &&
                         (<InfoWindow
                             onCloseClick={this.props.toggleWindow}
                         >
