@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom'
 class Container extends Component{
     state = {
         google: this.props.google,
-        // locations: this.props.locations,
+        locations: this.props.locations,
         fMarkets: this.props.fLocation,
         markers: [],
         infoWindow: new this.props.google.maps.InfoWindow()
@@ -18,12 +18,12 @@ class Container extends Component{
         this.loadMap()
     }
 
-    // fMarkets = this.props.fLocation /*Uncomment and comment out fMarkets in state to use*/
+    fMarkets = this.props.fLocation
 
     //Once the map loads all the markers using the configuration in mConfig
     loadMap(){
         // console.log(this.props.fLocation)
-        console.log(this.props.fLocation)
+        // console.log(this.props.fLocation)
         // console.log(this.state.fMarkets)
         if(this.props && this.props.google){
             let {google} = this.props
@@ -63,13 +63,13 @@ class Container extends Component{
         let animation = this.props.google.maps.Animation.DROP
         // let mLocations = null
         // console.log(this.fMarkets)
-console.log(mLocations)
-        // if (this.fMarkets === null){
-        //     mLocations = this.state.locations
-        // }
-        // else{
-        //     mLocations = this.fMarkets
-        // }
+        // console.log(mLocations)
+        if (this.fMarkets === null){
+            mLocations = this.state.locations
+        }
+        else{
+            mLocations = this.fMarkets
+        }
 
         mLocations.forEach( location => {
             let mMarker = new google.maps.Marker({
@@ -84,7 +84,7 @@ console.log(mLocations)
                 animation
                 
             })
-console.log(location.title)
+// console.log(location.title)
             mMarker.addListener('click', ()=>{
                 this.populateInfoWindow(mMarker, infoWindow)
                 })
