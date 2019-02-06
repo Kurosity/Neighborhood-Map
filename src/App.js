@@ -12,7 +12,8 @@ class App extends Component {
     zoom: 11.5,
     locations: markets,
     openDrawer: false,
-    fLocations: null
+    fLocations: markets,
+    infoWindow: new this.props.google.maps.InfoWindow()
   }
 
 // 1st attempt to display InfoWindow from menu
@@ -113,6 +114,7 @@ class App extends Component {
           open={this.state.openDrawer}
           toggle={this.toggle}
           fLocations={this.updateMarketQuery}
+          //menuSelect={this.menuSelect}
         />
       </div>
     );
