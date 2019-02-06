@@ -10,6 +10,7 @@ This project displays markers for a list of farmer's markets on a map. When the 
 Do the following before running:
 
 npm install --save google-maps-react
+
 npm install @material-ui/core
 
 
