@@ -13,9 +13,12 @@ class Container extends Component{
     }
    
     //Once something updates (search query), reload the map
-    componentDidUpdate = () =>{
-        // console.log(this.props.fLocation)
-        this.loadMap()
+    componentDidUpdate = = (prevProps) =>{
+        console.log(this.state.fMarkets)
+        console.log(prevProps.fMarkets)
+        if(this.props.fLocation !== prevProps.fLocation){
+            this.loadMap()
+        }
     }
 
     fMarkets = this.props.fLocation
@@ -179,7 +182,7 @@ class Container extends Component{
             </div>
             `)
             infoWindow.open(this.map, marker)
-            infoWindow.addListener('closeclick', function(){
+            infoWindow.addListener('click', function(){
                 infoWindow.marker = null
             })
         }
