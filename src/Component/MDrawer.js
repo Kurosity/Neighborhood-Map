@@ -4,7 +4,7 @@ import {withStyles} from '@material-ui/core/styles'
 import MuiExpansionPanel from '@material-ui/core/ExpansionPanel'
 import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
 import MuiExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
-import Typography from '@material-ui/core/Typography
+import Typography from '@material-ui/core/Typography'
 
 //Courtesy of Customized Expansion Panels section of https://material-ui.com/demos/expansion-panels/
 let ExpansionPanel = withStyles({
