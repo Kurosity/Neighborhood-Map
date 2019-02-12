@@ -12,11 +12,19 @@ class Container extends Component{
         infoWindow: new this.props.google.maps.InfoWindow()
     }
    
-    //Once something updates (search query), reload the map
+    /*
+    * Once something updates (search query), reload the map
+    * Reset the marker
+    */
     componentDidUpdate = = (prevProps) =>{
         console.log(this.state.fMarkets)
         console.log(prevProps.fMarkets)
         if(this.props.fLocation !== prevProps.fLocation){
+
+            this.setState((state) => ({
+                markers: []
+            }))
+
             this.loadMap()
         }
     }
@@ -62,17 +70,14 @@ class Container extends Component{
         let mbounds = new google.maps.LatLngBounds()
         let {infoWindow} = this.state
         let mLocations = this.props.fLocation
-        // let mFLocations = this.fMarkets
         let animation = this.props.google.maps.Animation.DROP
-        // let mLocations = null
-        // console.log(this.fMarkets)
-        // console.log(mLocations)
-        if (this.fMarkets === null){
-            mLocations = this.state.locations
-        }
-        else{
-            mLocations = this.fMarkets
-        }
+
+//         if (this.fMarkets === null){
+//             mLocations = this.state.locations
+//         }
+//         else{
+//             mLocations = this.fMarkets
+//         }
 
         mLocations.forEach( location => {
             let mMarker = new google.maps.Marker({
@@ -91,9 +96,11 @@ class Container extends Component{
             mMarker.addListener('click', ()=>{
                 this.populateInfoWindow(mMarker, infoWindow)
                 })
-            // this.setState((state) => ({
-            //     markers:[state.markers, mMarker]
-            // }))
+            
+//                 this.setState((state) => ({
+//                     markers: state.markers.concat(mMarker)
+//                 }))
+            
             mbounds.extend(mMarker.position)
         })
     
