@@ -1,10 +1,80 @@
 import React, { Component } from 'react'
 import Drawer from '@material-ui/core/Drawer'
+import {withStyles} from '@material-ui/core/styles'
+import MuiExpansionPanel from '@material-ui/core/ExpansionPanel'
+import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
+import MuiExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
+import Typography from '@material-ui/core/Typography
+
+//Courtesy of Customized Expansion Panels section of https://material-ui.com/demos/expansion-panels/
+let ExpansionPanel = withStyles({
+    root: {
+      border: '1px solid rgba(0,0,0,.125)',
+      boxShadow: 'none',
+      '&:not(:last-child)': {
+        borderBottom: 0,
+      },
+      '&:before': {
+        display: 'none',
+      },
+    },
+    expanded: {
+      margin: 'auto',
+    },
+  })(MuiExpansionPanel);
+  
+  let ExpansionPanelSummary = withStyles({
+    root: {
+      backgroundColor: 'rgba(0,0,0,.03)',
+      borderBottom: '1px solid rgba(0,0,0,.125)',
+      marginBottom: -1,
+      minHeight: 56,
+      '&$expanded': {
+        minHeight: 56,
+      },
+    },
+    content: {
+      '&$expanded': {
+        margin: '12px 0',
+      },
+    },
+    expanded: {},
+  })(props => <MuiExpansionPanelSummary {...props} />);
+  
+  ExpansionPanelSummary.muiName = 'ExpansionPanelSummary';
+  
+  let ExpansionPanelDetails = withStyles(theme => ({
+    root: {
+      padding: theme.spacing.unit * 2,
+      display:'flex', 
+      flexDirection:'column',
+    },
+  }))(MuiExpansionPanelDetails);
+
 
 class MapDrawer extends Component{
     state = {
         open: false,
-        query: ''
+        query: '',
+        expanded: ''
+    }
+
+    //Displays the Expansion Details of the selected Expansion Panel Summary
+    handleChange = (event, expanded) => {
+        if(expanded === this.state.expanded){
+            this.setState({
+                ...this.state,
+                expanded: ''
+            })
+        }
+        else{
+            this.setState({
+                ...this.state,
+                expanded: expanded
+            })
+        }
+        
+        console.log(this.state.expanded)
     }
 
 //Update the query based on the search bar
@@ -34,7 +104,8 @@ class MapDrawer extends Component{
         link: {
             background: "transparent",
             border: "none",
-            color: "black"
+            color: "black",
+            padding: "15px"
         },
         searchInput: {
             border: "1px solid gray",
@@ -45,6 +116,9 @@ class MapDrawer extends Component{
     }
 
     render(){
+        
+        let {expanded} = this.state;
+        
         return(
             <div>
                 <Drawer 
@@ -63,25 +137,25 @@ class MapDrawer extends Component{
                                 change.target.value
                             )}
                         />
-                        <ul style={this.styles.list}>
-                            {this.props.locations && this.props.locations.map((market, index) => {
-                                return (
-                                    <li 
-                                        style={this.styles.market} 
-                                        key={index}
-                                        aria-label='Place Location'
-                                    >
-                                        <button 
-                                            style={this.styles.link}
-                                            key={index}
-                                            //onClick={this.props.menuSelect(market.name)}
-                                        >
-                                            {market.name}
-                                        </button>
-                                    </li>
-                                )
-                            })}
-                        </ul>
+                        {this.props.locations && this.props.locations.map((market, index) => {
+                            return (
+                                <ExpansionPanel
+                                    square
+                                    key={index}
+                                    expanded={expanded === ('panel'+index)}
+                                    onChange={event => this.handleChange(event, ('panel'+index), market.name)}
+                                >
+                                    <ExpansionPanelSummary>
+                                        <Typography>{market.name}</Typography>
+                                    </ExpansionPanelSummary>
+                                    <ExpansionPanelDetails>
+                                        <Typography component='p' align='center' variant='body2'>{market.name}</Typography>
+                                        <Typography component='p' align='center'>{market.street}
+                                        </Typography>
+                                    </ExpansionPanelDetails>
+                                </ExpansionPanel>
+                            )
+                        })}
                     </div>
                 </Drawer>
             </div>
