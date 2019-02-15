@@ -11,7 +11,6 @@ class App extends Component {
     lng: -76.2859, 
     zoom: 18,
     openDrawer: false,
-    fLocations: markets,
     infoWindow: new this.props.google.maps.InfoWindow(),
     menuMarket: [],
     mMarkers: [],
