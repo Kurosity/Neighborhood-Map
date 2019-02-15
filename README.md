@@ -3,7 +3,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Last Project - Farmer's Market Neighborhood-Map
 
 ## Purpose
-This project displays markers for a list of farmer's markets on a map. When the marker is clicked the InfoWindow is displayed with the market information. The InfoWindow will also display when the farmer's market is clicked on the menu. The markers can also be fitered by use the search field on the menu. This project used the Foursquare API.
+This project displays markers for a list of farmer's markets on a map. When the marker is clicked the InfoWindow is displayed with the market information. The markers will bounce whn the title is clicked on the menu. the menu is displayed by selecting the black square button on the header. The markers can also be fitered by using the search field on the menu. This project used the Foursquare API.
 
 ## Components
 
@@ -13,7 +13,8 @@ npm install --save google-maps-react
 
 npm install @material-ui/core
 
-npm install axios
+npm install axios --save
+
 
 
 
