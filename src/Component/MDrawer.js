@@ -60,7 +60,7 @@ class MapDrawer extends Component{
     }
 
     //Displays the Expansion Details of the selected Expansion Panel Summary
-    handleChange = (event, expanded) => {
+    handleChange = (event, expanded, name) => {
         if(expanded === this.state.expanded){
             this.setState({
                 ...this.state,
@@ -72,9 +72,9 @@ class MapDrawer extends Component{
                 ...this.state,
                 expanded: expanded
             })
+            
+            this.props.menuClick(name)
         }
-        
-        console.log(this.state.expanded)
     }
 
 //Update the query based on the search bar
@@ -115,6 +115,11 @@ class MapDrawer extends Component{
         }
     }
 
+    //Capitalize the first letter in the title
+    capitalize(name){
+        return name.charAt(0).toUpperCase() + name.slice(1)
+    }
+
     render(){
         
         let {expanded} = this.state;
@@ -137,22 +142,24 @@ class MapDrawer extends Component{
                                 change.target.value
                             )}
                         />
+                     
                         {this.props.locations && this.props.locations.map((market, index) => {
                             return (
                                 <ExpansionPanel
                                     square
                                     key={index}
                                     expanded={expanded === ('panel'+index)}
-                                    onChange={event => this.handleChange(event, ('panel'+index), market.name)}
+                                    onChange={event => this.handleChange(event, ('panel'+index), market.venue.name)}
                                 >
-                                    <ExpansionPanelSummary>
-                                        <Typography>{market.name}</Typography>
-                                    </ExpansionPanelSummary>
-                                    <ExpansionPanelDetails>
-                                        <Typography component='p' align='center' variant='body2'>{market.name}</Typography>
-                                        <Typography component='p' align='center'>{market.street}
-                                        </Typography>
-                                    </ExpansionPanelDetails>
+                                <ExpansionPanelSummary>
+                                    <Typography>{this.capitalize(market.venue.name)}</Typography>
+                                </ExpansionPanelSummary>
+                                <ExpansionPanelDetails>
+                                    <Typography component='p' align='center' variant='body2'>{this.capitalize(market.venue.name)}</Typography>
+                                    <Typography component='p' align='center'>
+                                        {market.venue.location.city}, {market.venue.location.state}
+                                    </Typography>
+                                </ExpansionPanelDetails>
                                 </ExpansionPanel>
                             )
                         })}
