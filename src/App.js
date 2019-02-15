@@ -2,66 +2,69 @@ import React, { Component } from 'react';
 import {GoogleApiWrapper} from 'google-maps-react'
 import './App.css';
 import Container from './Component/Container'
-import markets from './data/markets'
 import Drawer from './Component/MDrawer'
+import axios from 'axios'
 
 class App extends Component {
   state = {
-    lat: 36.8529,
-    lng: -75.9780, 
-    zoom: 11.5,
-    locations: markets,
+    lat: 36.8508,
+    lng: -76.2859, 
+    zoom: 18,
     openDrawer: false,
     fLocations: markets,
-    infoWindow: new this.props.google.maps.InfoWindow()
+    infoWindow: new this.props.google.maps.InfoWindow(),
+    menuMarket: [],
+    mMarkers: [],
+    locations: [],
+    fLocations: []
   }
 
-// 1st attempt to display InfoWindow from menu
-    menuSelect = (mName) => {
-    let {infoWindow} = this.state
-    let mSData = this.locations.filter(market => 
-     market.name.toLowerCase().includes(mName.toLowerCase()))
-    
-    this.populateInfoWindow=(mSData, infoWindow)
-   } 
 
- //Function to display InfoWindow
-    populateInfoWindow = (marker, infoWindow) => {
-      // console.log(marker.title)
-      if(this.state.marker !== marker){
-        this.setState(infoWindow.marker = marker)
-          this.state.setContent(`
-          <div>   
-              <h3>${marker.title}</h3>
-          </div>
-          <div>
-              <ul style='list-style-type:none'>
-                  <li>${marker.address}</li>
-                  <li>${marker.city}</li>
-                  <li><a href='${marker.link}'>More Information</a></li>
-              </ul>
-          </div>
-          `)
-          infoWindow.open(this.map, marker)
-          infoWindow.addListener('closeclick', function(){
-              infoWindow.marker = null
-          })
-      }
+/*
+* Get Foursquare Data: Courtesy of Elharony on YouTube (Udacity | Neighborhood Map [3])
+*/
+
+  getFourSquareVenue = () => {
+    let endPoint = 'https://api.foursquare.com/v2/venues/explore?'
+    let params = {
+      client_id: 'MPMIPEFLMPND14GTEZY0XHML5SWAQGLVLF20RXN24NBPDOQ1',
+      client_secret: 'D4RF3A33ZDYJU2UJR03YLESOJVYH3JKG5LAC4QTHXFWYXP0I',
+      ll: '36.8508, -76.2859',
+      query: 'farmersmarket',      
+      v: '20180323'
     }
 
+    axios.get(endPoint + new URLSearchParams(params))
+      .then(resp => {
+        this.setState({
+          fLocations: resp.data.response.groups[0].items,
+          locations: resp.data.response.groups[0].items
+        })
+      })
+      .catch(err => {
+        alert('Unable to retrieve locations.')
+        console.log(err)
+      })
+  }
+  
+  //Get the filtered markers
+  fMarkers = (menuMarkers) => {
+    this.setState({
+      ...this.state,
+      selectedIndex: null,
+      mMarkers: menuMarkers
+    })
+  }
+  
+  //Get the location information from Foursquare once the component mounts
   componentDidMount = () => {
-    // Mount the locatations
-    // this.setState({
-    //   ...this.state,
-    //   fLocations: this.state.locations
-    // })
-    console.log(this.state.fLocations)
+    this.getFourSquareVenue()
   }
 
   //Filter the market based on the search query
   filterMarket = (locations, query) => {
     return locations.filter(market => 
-      market.name.toLowerCase().includes(query.toLowerCase()))
+      market.venue.name.toLowerCase().includes(query.toLowerCase()))
   }
 
   // Update fLocations with the filtered query (using filterMarket)
@@ -77,6 +80,18 @@ class App extends Component {
   toggle = () => {
     this.setState({ openDrawer: !this.state.openDrawer})
   }
+  
+  //Make the marker bounce when the menu item is clicked
+  menuClick = (menuName) => {
+    let thisMarker = this.state.mMarkers.filter(
+        mName =>
+          mName.title.toLowerCase().includes(menuName.toLowerCase())
+      )
+
+    thisMarker[0].setAnimation(window.google.maps.Animation.BOUNCE)
+    setTimeout(function(){thisMarker[0].setAnimation(null)}, 2500)
+  }
+    
 
   styles = {
     button:{
@@ -91,7 +106,7 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state.fLocations)
+  
     return (
       <div className="App">
         <div>
@@ -99,7 +114,7 @@ class App extends Component {
             <i className='menuButton'></i>
           </button>
           <p>
-            My Neighborhod Map
+            My Neighborhod Markets Map
           </p>
         </div>
         <Container 
@@ -108,13 +123,16 @@ class App extends Component {
           zoom={this.state.zoom}
           locations={this.state.locations}
           fLocation={this.state.fLocations}
-          google={this.props.google}/>
+          google={this.props.google}
+          mMarket={this.props.menuMarket}
+          mMarkers={this.fMarkers}
+        />
         <Drawer
           locations={this.state.fLocations}
           open={this.state.openDrawer}
           toggle={this.toggle}
           fLocations={this.updateMarketQuery}
-          //menuSelect={this.menuSelect}
+          menuClick={this.menuClick}
         />
       </div>
     );
